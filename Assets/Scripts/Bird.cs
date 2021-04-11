@@ -12,12 +12,14 @@ public class Bird : MonoBehaviour
 
     Collider2D cl;
     Rigidbody2D rb;
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
         cl = this.GetComponent<Collider2D>();
+        anim = this.GetComponent<Animator>();
 
         rb.velocity = Vector3.zero;
         rb.bodyType = RigidbodyType2D.Static;
@@ -45,12 +47,14 @@ public class Bird : MonoBehaviour
     public void Jump()
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
-        
+
+        anim.SetTrigger("Active");
 
         Vector2 velocity = rb.velocity;
         velocity.y = jumpForce;
         rb.velocity = velocity;
     }
+
 
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag == "Wall")
